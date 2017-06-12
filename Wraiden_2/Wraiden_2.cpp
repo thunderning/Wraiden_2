@@ -11,6 +11,8 @@ Wraiden_2::Wraiden_2(QWidget *parent)
 	connect(timer_20, SIGNAL(timeout()), this, SLOT(moveMyplane()));
 	QPixmap t("Resources/BlueFighterSpaceship-by-MillionthVector/blueships1.png");
 	gragh = new QGraphicsScene;
+	myplane = new MyPlane(t);
+	myplane->setQuality(MYPLANE);
 }
 
 void Wraiden_2::paintEvent(QPaintEvent * event)
@@ -74,11 +76,20 @@ void Wraiden_2::gameStart()
 	ui.setupUi(this);
 	QGraphicsScene *gt = new QGraphicsScene;
 	QPixmap t("Resources/BlueFighterSpaceship-by-MillionthVector/blueships1.png");
-	myplane = new MyPlane(t);
 	gt->addItem(myplane);
 	myplane->setPos(275, 675);
 	ui.graphicsView->setScene(gt);
 	gt->setSceneRect(0, 0, 600, 775);
+	//³¢ÊÔ¶¯»­
+	QGraphicsItemAnimation* gia=new QGraphicsItemAnimation;
+	QGraphicsPixmapItem* a = new QGraphicsPixmapItem(t);
+	gt->addItem(a);
+	gia->setItem(a);
+	QTimeLine *tl=new QTimeLine(4000);
+	gia->setTimeLine(tl);
+	for (int i = 0; i < 40; i++)
+		gia->setPosAt(i / 40.0, QPointF(i, ((i-50)*(i-50)-100)/10));
+	tl->start();
 }
 
 void Wraiden_2::moveMyplane()

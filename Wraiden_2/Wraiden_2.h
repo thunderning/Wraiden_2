@@ -10,6 +10,8 @@
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QKeyEvent>
+#include <QGraphicsItemAnimation>
+#include <QTimeLine>
 #include "ui_Wraiden_2.h"
 #include "ui_StartPage.h"
 //#include "Item.h"

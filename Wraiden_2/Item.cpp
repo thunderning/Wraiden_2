@@ -2,6 +2,11 @@
 
 
 
+void Item::setQuality(int q)
+{
+	quality = q;
+}
+
 bool Item::check_out(int w,int h)
 {
 	QPointF t = this->pos();
