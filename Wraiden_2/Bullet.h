@@ -1,5 +1,6 @@
-#pragma once
-#include "Item.h"
+#ifndef BULLET_H
+#define BULLET_H
+#include "Plane.h"
 class Bullet :
 	public Item
 {
@@ -20,3 +21,4 @@ public:
 	~Bullet();
 };
 
+#endif

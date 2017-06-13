@@ -13,6 +13,9 @@ Wraiden_2::Wraiden_2(QWidget *parent)
 	gragh = new QGraphicsScene;
 	myplane = new MyPlane(t);
 	myplane->setQuality(MYPLANE);
+	QTimer *timer_2000 = new QTimer;
+	connect(timer_2000, SIGNAL(timeout()), this, SLOT(hitit()));
+	timer_2000->start(3000);
 }
 
 void Wraiden_2::paintEvent(QPaintEvent * event)
@@ -71,6 +74,18 @@ void Wraiden_2::changeBGPic()
 	update();
 }
 
+void Wraiden_2::init_mp_temp()
+{
+}
+
+void Wraiden_2::init_bl_temp()
+{
+}
+
+void Wraiden_2::init_ep_temp()
+{
+}
+
 void Wraiden_2::gameStart()
 {
 	ui.setupUi(this);
@@ -81,14 +96,14 @@ void Wraiden_2::gameStart()
 	ui.graphicsView->setScene(gt);
 	gt->setSceneRect(0, 0, 600, 775);
 	//³¢ÊÔ¶¯»­
-	QGraphicsItemAnimation* gia=new QGraphicsItemAnimation;
-	QGraphicsPixmapItem* a = new QGraphicsPixmapItem(t);
+	gia=new QGraphicsItemAnimation;
+	a = new QGraphicsPixmapItem(t);
 	gt->addItem(a);
 	gia->setItem(a);
-	QTimeLine *tl=new QTimeLine(4000);
+	tl=new QTimeLine(4000);
 	gia->setTimeLine(tl);
-	for (int i = 0; i < 40; i++)
-		gia->setPosAt(i / 40.0, QPointF(i, ((i-50)*(i-50)-100)/10));
+	gia->setPosAt(0.5, QPointF(300, 100));
+	gia->setPosAt(4.0 / 4.0, QPointF(400, 400));
 	tl->start();
 }
 
@@ -119,4 +134,11 @@ void Wraiden_2::moveMyplane()
 		if (!myplane->check_out(windwid, windhei))
 			myplane->moveBy(-spd, 0);
 	}
+}
+
+void Wraiden_2::hitit()
+{
+	delete tl;
+	delete gia;
+	delete a;
 }
