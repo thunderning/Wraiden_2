@@ -14,6 +14,7 @@ public:
 	//Bullet launch_bullet();
 	int get_life();
 	int get_speed();
+	int get_bullet();
 	int change_life(int dmg);
 	void flesh_bullet();
 };

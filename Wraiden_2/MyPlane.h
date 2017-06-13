@@ -7,7 +7,7 @@ class MyPlane :
 public:
 	QRectF boundingRect()const;
 	void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-	MyPlane(QPixmap &p);
+	MyPlane(QPixmap &p,int lf,int bulletnum);
 	MyPlane();
 	~MyPlane();
 };

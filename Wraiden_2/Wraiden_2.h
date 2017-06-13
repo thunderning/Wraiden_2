@@ -34,24 +34,26 @@ public:
 	QGraphicsPixmapItem* a;
 	QGraphicsItemAnimation* gia;
 	QTimeLine *tl;
-	QVector<MyPlane> mp_template;
-	//QVector<Bullet> bl_template;
-	//QVector<EnemyPlane> ep_template;
-	void init_mp_temp();
+	QVector<QGraphicsItemAnimation*> bl_template;
+	QVector<QGraphicsItemAnimation*> ep_template;
+	void init_mp();
 	void init_bl_temp();
 	void init_ep_temp();
 private slots:
 	void changeBGPic();
 	void gameStart();
 	void moveMyplane();
+	void setNewEnemy();
 	void hitit();
 protected:
 	int bgy = 0;
 	QGraphicsScene *gragh;
 	QTimer *timer_20;
+	QTimer *timer_2000;
+	QTimeLine *tll;
 	MyPlane *myplane;
-	//QVector<Bullet*> bullets;
-	//QVector<EnemyPlane*> enemys;
+	QVector<QGraphicsItemAnimation*> bullets;
+	QVector<QGraphicsItemAnimation*> enemys;
 	enum MyEnum
 	{
 		MYPLANE, MYBULLET, ENTMYPLANE, ENEMYBULLET, SUPPORT

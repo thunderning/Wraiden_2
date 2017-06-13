@@ -6,16 +6,11 @@ Wraiden_2::Wraiden_2(QWidget *parent)
 	ui_start.setupUi(this);
 	timer_20 = new QTimer;
 	timer_20->start(20);
+	timer_2000 = new QTimer;
+	timer_2000->start(2000);
 	connect(timer_20, SIGNAL(timeout()), this, SLOT(changeBGPic()));
 	connect(ui_start.pushButton, SIGNAL(clicked()), this, SLOT(gameStart()));
-	connect(timer_20, SIGNAL(timeout()), this, SLOT(moveMyplane()));
-	QPixmap t("Resources/BlueFighterSpaceship-by-MillionthVector/blueships1.png");
 	gragh = new QGraphicsScene;
-	myplane = new MyPlane(t);
-	myplane->setQuality(MYPLANE);
-	QTimer *timer_2000 = new QTimer;
-	connect(timer_2000, SIGNAL(timeout()), this, SLOT(hitit()));
-	timer_2000->start(3000);
 }
 
 void Wraiden_2::paintEvent(QPaintEvent * event)
@@ -74,8 +69,16 @@ void Wraiden_2::changeBGPic()
 	update();
 }
 
-void Wraiden_2::init_mp_temp()
+void Wraiden_2::init_mp()
 {
+	QPixmap t("Resources/BlueFighterSpaceship-by-MillionthVector/blueships1.png");
+	myplane = new MyPlane(t,1,1);
+	myplane->setQuality(MYPLANE);
+	gragh->addItem(myplane);
+	myplane->setPos(275, 675);
+	gragh->setSceneRect(0, 0, 600, 775);
+	connect(timer_20, SIGNAL(timeout()), this, SLOT(moveMyplane()));
+	connect(timer_2000, SIGNAL(timeout()), this, SLOT(setNewEnemy()));
 }
 
 void Wraiden_2::init_bl_temp()
@@ -84,27 +87,27 @@ void Wraiden_2::init_bl_temp()
 
 void Wraiden_2::init_ep_temp()
 {
+	QTimeLine *tl = new QTimeLine(4000);
+	QPixmap t("Resources/BlueFighterSpaceship-by-MillionthVector/blueships1.png");
+	QGraphicsItemAnimation *gia = new QGraphicsItemAnimation;
+	gia->setTimeLine(tl);
+	EnemyPlane *ep = new EnemyPlane(t, 1, 1, 1);
+	ep->setPath(gia);
+	gia->setItem((QGraphicsItem*)ep);
+	gia->setPosAt(0.0, QPointF(0, 0));
+	gia->setPosAt(0.5, QPointF(50, 200));
+	gia->setPosAt(1.0, QPointF(600, 700));
+	ep_template.push_back(gia);
 }
 
 void Wraiden_2::gameStart()
 {
 	ui.setupUi(this);
-	QGraphicsScene *gt = new QGraphicsScene;
 	QPixmap t("Resources/BlueFighterSpaceship-by-MillionthVector/blueships1.png");
-	gt->addItem(myplane);
-	myplane->setPos(275, 675);
-	ui.graphicsView->setScene(gt);
-	gt->setSceneRect(0, 0, 600, 775);
+	ui.graphicsView->setScene(gragh);
+	init_mp();
+	init_ep_temp();
 	//³¢ÊÔ¶¯»­
-	gia=new QGraphicsItemAnimation;
-	a = new QGraphicsPixmapItem(t);
-	gt->addItem(a);
-	gia->setItem(a);
-	tl=new QTimeLine(4000);
-	gia->setTimeLine(tl);
-	gia->setPosAt(0.5, QPointF(300, 100));
-	gia->setPosAt(4.0 / 4.0, QPointF(400, 400));
-	tl->start();
 }
 
 void Wraiden_2::moveMyplane()
@@ -136,9 +139,23 @@ void Wraiden_2::moveMyplane()
 	}
 }
 
+void Wraiden_2::setNewEnemy()
+{
+	QGraphicsItemAnimation *gia = new QGraphicsItemAnimation;
+	EnemyPlane *t = (EnemyPlane*)ep_template[0]->item();
+	EnemyPlane *ep = new EnemyPlane(t->pixmap(), t->get_life(), t->get_bullet(), t->get_damage());
+	ep->setPath(gia);
+	gragh->addItem(ep);
+	QTimeLine *tl = new QTimeLine(ep_template[0]->timeLine()->duration());
+	gia->setTimeLine(tl);
+	gia->setItem(ep);
+	QList<QPair<qreal, QPointF>> ls = ep_template[0]->posList();
+	for (int i = 0; i < ls.size(); i++)
+		gia->setPosAt(ls[i].first, ls[i].second);
+	enemys.push_back(gia);
+	tl->start();
+}
+
 void Wraiden_2::hitit()
 {
-	delete tl;
-	delete gia;
-	delete a;
 }
