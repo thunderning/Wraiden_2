@@ -2,6 +2,16 @@
 
 
 
+QRectF EnemyPlane::boundingRect() const
+{
+	return QRectF(0, 0, pic.width(), pic.height());
+}
+
+void EnemyPlane::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget)
+{
+	painter->drawPixmap(0, 0, pic);
+}
+
 void EnemyPlane::setPath(QGraphicsItemAnimation * p)
 {
 	path = p;
@@ -19,7 +29,7 @@ int EnemyPlane::get_damage()
 
 EnemyPlane::EnemyPlane(QPixmap & p, int lf, int bulletnum, int dmg)
 {
-	setPixmap(p);
+	pic=p;
 	life = lf;
 	bullet = bulletnum;
 	damage = dmg;

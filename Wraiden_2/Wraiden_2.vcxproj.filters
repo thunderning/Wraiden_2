@@ -60,6 +60,12 @@
     <ClCompile Include="EnemyPlane.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_Item.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_Item.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Wraiden_2.h">
@@ -74,6 +80,9 @@
     <CustomBuild Include="StartPage.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="Item.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_Wraiden_2.h">
@@ -81,9 +90,6 @@
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_StartPage.h">
       <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Item.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Plane.h">
       <Filter>Header Files</Filter>

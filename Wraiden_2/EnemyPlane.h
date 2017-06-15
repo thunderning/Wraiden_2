@@ -6,9 +6,11 @@ class EnemyPlane :
 	public Plane
 {
 protected:
-	int damage;  //ÉËº¦     
+	int damage;  //×²»÷ÉËº¦     
 	QGraphicsItemAnimation *path;
 public:
+	QRectF boundingRect()const;
+	void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 	void setPath(QGraphicsItemAnimation *p);
 	QGraphicsItemAnimation * getPath();
 	int get_damage();

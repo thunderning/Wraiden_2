@@ -13,6 +13,7 @@
 #include <QGraphicsItemAnimation>
 #include <QTimeLine>
 #include <QVector>
+#include <QString>
 #include "ui_Wraiden_2.h"
 #include "ui_StartPage.h"
 //#include "Item.h"
@@ -39,24 +40,34 @@ public:
 	void init_mp();
 	void init_bl_temp();
 	void init_ep_temp();
+	void addTempleToBl(int time,QString picPath,QList<QPair<qreal, QPointF>> pathPoint, QTimeLine::CurveShape mode, int dmg);
+	void addTempleToEP(int time, QString picPath, QList<QPair<qreal, QPointF>> pathPoint, QTimeLine::CurveShape mode, int dmg, int life,int blt,int lspd);
+	void addBltoGragh(Plane *plane, int quality);
+	void addEptoGragh(int num, QPointF position);
+	void collidChange(Item *it,int quality);
 private slots:
 	void changeBGPic();
 	void gameStart();
 	void moveMyplane();
+	void launchBullet();
 	void setNewEnemy();
-	void hitit();
+	void deleteItems();
+	void time20CountPlus();
+	void time1000CountPlus();
+	void checkCollid();
 protected:
 	int bgy = 0;
 	QGraphicsScene *gragh;
 	QTimer *timer_20;
-	QTimer *timer_2000;
-	QTimeLine *tll;
+	QTimer *timer_1000;
 	MyPlane *myplane;
+	int time_20_count = 0;
+	int time_1000_count = 0;
 	QVector<QGraphicsItemAnimation*> bullets;
 	QVector<QGraphicsItemAnimation*> enemys;
 	enum MyEnum
 	{
-		MYPLANE, MYBULLET, ENTMYPLANE, ENEMYBULLET, SUPPORT
+		MYPLANE, MYBULLET, ENEMYPLANE, ENEMYBULLET, SUPPORT
 	};
 	bool keyUpPressed = false;
 	bool keyDownPressed = false;

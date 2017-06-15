@@ -4,17 +4,17 @@
 
 QRectF MyPlane::boundingRect() const
 {
-	return QRectF(0, 0, pixmap().width(), pixmap().height());
+	return QRectF(0, 0, pic.width(), pic.height());
 }
 
 void MyPlane::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget)
 {
-	painter->drawPixmap(0, 0, pixmap());
+	painter->drawPixmap(0, 0, pic);
 }
 
 MyPlane::MyPlane(QPixmap &p, int lf, int bulletnum)
 {
-	setPixmap(p);
+	pic=p;
 	this->life = lf;
 	this->bullet = bulletnum;
 }

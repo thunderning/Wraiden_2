@@ -20,7 +20,7 @@ public:
 	int get_speed();
 	int get_damage();
 	//int set(int t, vector<vector<char>>& output, vector<vector<int>>& quality, vector<vector<int>>& source);
-	Bullet(int dmg, int spd, int frm, int drt, int x, int y, int len, int hei, char *p);
+	Bullet(QPixmap &p,int dmg);
 	Bullet();
 	~Bullet();
 };
